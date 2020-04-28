@@ -1,0 +1,15 @@
+__pycache__
+wandb*
+checkpoint
+.idea
+.mypy_cache
+.vscode
+MUJOCO_LOG.TXT
+.coverage
+.log
+.ipynb_checkpoints/
+
+# build
+build
+dist
+*.egg-info

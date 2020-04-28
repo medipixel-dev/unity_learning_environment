@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""Train or test algorithms on LunarLanderContinuous-v2.
+
+- Author: Curt Park
+- Contact: curt.park@medipixel.io
+"""
+
 import argparse
 import datetime
 
@@ -22,17 +28,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--cfg-path",
         type=str,
-        default="./configs/Sokoban/dqn.py",
+        default="./configs/Drone/ddpg.py",
         help="config path",
     )
     parser.add_argument(
         "--test", dest="test", action="store_true", help="test mode (no training)"
-    )
-    parser.add_argument(
-        "--grad-cam",
-        dest="grad_cam",
-        action="store_true",
-        help="test mode with viewing Grad-CAM",
     )
     parser.add_argument(
         "--load-from",
@@ -52,15 +52,26 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--log", dest="log", action="store_true", help="turn on logging"
     )
-    parser.add_argument("--save-period", type=int, default=20, help="save model period")
     parser.add_argument(
-        "--episode-num", type=int, default=20000, help="total episode num"
+        "--save-period", type=int, default=100, help="save model period"
     )
     parser.add_argument(
-        "--max-episode-steps", type=int, default=None, help="max episode step"
+        "--episode-num", type=int, default=3000, help="total episode num"
     )
     parser.add_argument(
-        "--interim-test-num", type=int, default=10, help="interim test number"
+        "--max-episode-steps", type=int, default=300, help="max episode step"
+    )
+    parser.add_argument(
+        "--interim-test-num",
+        type=int,
+        default=10,
+        help="number of test during training",
+    )
+    parser.add_argument(
+        "--demo-path",
+        type=str,
+        default="data/lunarlander_continuous_demo.pkl",
+        help="demonstration path for learning from demo",
     )
 
     return parser.parse_args()
@@ -71,7 +82,7 @@ def main():
     args = parse_args()
 
     # env initialization
-    env_name = "Sokoban"
+    env_name = "Drone"
     env = unity_env_generator(env_name)
 
     # set a random seed
@@ -82,14 +93,12 @@ def main():
     curr_time = NOWTIMES.strftime("%y%m%d_%H%M%S")
 
     cfg = Config.fromfile(args.cfg_path)
-    cfg.agent.log_cfg = dict(agent=cfg.agent.type, curr_time=curr_time)
+    cfg.agent["log_cfg"] = dict(agent=cfg.agent.type, curr_time=curr_time)
     build_args = dict(args=args, env=env)
     agent = build_agent(cfg.agent, build_args)
 
     if not args.test:
         agent.train()
-    elif args.test and args.grad_cam:
-        agent.test_with_gradcam()
     else:
         agent.test()
 
