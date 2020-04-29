@@ -8,6 +8,8 @@ MUJOCO_LOG.TXT
 .coverage
 .log
 .ipynb_checkpoints/
+Drone
+UnitySDK.log
 
 # build
 build
