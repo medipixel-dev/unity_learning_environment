@@ -56,10 +56,10 @@ def parse_args() -> argparse.Namespace:
         "--save-period", type=int, default=100, help="save model period"
     )
     parser.add_argument(
-        "--episode-num", type=int, default=3000, help="total episode num"
+        "--episode-num", type=int, default=20000, help="total episode num"
     )
     parser.add_argument(
-        "--max-episode-steps", type=int, default=300, help="max episode step"
+        "--max-episode-steps", type=int, default=10000, help="max episode step"
     )
     parser.add_argument(
         "--interim-test-num",
@@ -83,7 +83,8 @@ def main():
 
     # env initialization
     env_name = "Drone"
-    env = unity_env_generator(env_name)
+    train_mode = False if args.test else True
+    env = unity_env_generator(env_name, train_mode=train_mode)
 
     # set a random seed
     common_utils.set_random_seed(args.seed, env)
