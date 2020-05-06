@@ -7,29 +7,26 @@
 
 import argparse
 import datetime
+import logging
 
 from rl_algorithms import build_agent
-from unity_wrappers import unity_env_generator
 import rl_algorithms.common.helper_functions as common_utils
 from rl_algorithms.utils import Config
 
-import logging
+from unity_wrappers import unity_env_generator
 
 logger = logging.getLogger("mlagents.envs")
 logger.disabled = True
 
 
 def parse_args() -> argparse.Namespace:
-    # configurations
+    """Set argparse."""
     parser = argparse.ArgumentParser(description="Pytorch RL algorithms")
     parser.add_argument(
         "--seed", type=int, default=777, help="random seed for reproducibility"
     )
     parser.add_argument(
-        "--cfg-path",
-        type=str,
-        default="./configs/Sokoban/dqn.py",
-        help="config path",
+        "--cfg-path", type=str, default="./configs/Sokoban/dqn.py", help="config path",
     )
     parser.add_argument(
         "--test", dest="test", action="store_true", help="test mode (no training)"
@@ -45,9 +42,6 @@ def parse_args() -> argparse.Namespace:
         type=str,
         default=None,
         help="load the saved model and optimizer at the beginning",
-    )
-    parser.add_argument(
-        "--off-render", dest="render", action="store_false", help="turn off rendering"
     )
     parser.add_argument(
         "--render-after",
@@ -68,6 +62,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--interim-test-num", type=int, default=10, help="interim test number"
     )
+    parser.add_argument(
+        "--worker-id", type=int, default=1, help="worker id of unity env"
+    )
+
+    parser.set_defaults(render=False)
 
     return parser.parse_args()
 
