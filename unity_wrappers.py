@@ -34,7 +34,7 @@ class Sokoban:
         self.train_mode = train_mode
 
     def reset(self):
-        env_info = self.env.reset(train_mode=self.train_mode, config=self.env_cfg)[
+        env_info = self.env.reset(train_mode=self.train_mode, config=self.cfg)[
             self.default_brain
         ]
         return env_info.visual_observations[0][0].reshape(3, 84, 84)
@@ -79,7 +79,7 @@ class Drone:
         self.train_mode = train_mode
 
     def reset(self):
-        env_info = self.env.reset(train_mode=self.train_mode, config=self.env_cfg)[
+        env_info = self.env.reset(train_mode=self.train_mode, config=self.cfg)[
             self.default_brain
         ]
         return env_info.vector_observations[0]

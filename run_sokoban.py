@@ -77,7 +77,8 @@ def main():
 
     # env initialization
     env_name = "Sokoban"
-    env = unity_env_generator(env_name)
+    train_mode = not args.test
+    env = unity_env_generator(env_name, train_mode, args.worker_id)
 
     # set a random seed
     common_utils.set_random_seed(args.seed, env)
