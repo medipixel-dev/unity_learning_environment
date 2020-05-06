@@ -7,13 +7,12 @@ from mlagents.envs import UnityEnvironment
 import numpy as np
 
 
-
 Sokoban_env_cfg = {"gridSize": 5, "numGoals": 1, "numBoxes": 1}
 Drone_env_cfg = {"numGoals": 5}
 
 class gym_():
     def make(self, env_name, train_mode=True):
-        env_path = env_name + "/" + env_name
+        env_path = f"UnityEnv/{env_name}/{env_name}"
         return getattr(sys.modules[__name__], env_name)(env_path, env_name, train_mode=train_mode)
 
 
