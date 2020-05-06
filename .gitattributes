@@ -53,4 +53,4 @@
 *.unity linguist-generated
 
 # Unity Env
-UnityEnv/* filter=lfs diff=lfs merge=lfs -text
+UnityEnv/** filter=lfs diff=lfs merge=lfs -text
