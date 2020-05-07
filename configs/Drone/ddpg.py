@@ -3,9 +3,8 @@
 - Author: Kyunghwan Kim
 - Contact: kh.kim@medipixel.io
 """
-import torch.nn.functional as F
-
 from rl_algorithms.common.helper_functions import identity
+import torch.nn.functional as F
 
 agent = dict(
     type="DDPGAgent",
@@ -22,8 +21,7 @@ agent = dict(
     backbone=dict(actor=dict(), critic=dict(),),
     head=dict(
         actor=dict(
-            type="MLP",
-            configs=dict(hidden_sizes=[512], output_activation=F.tanh,),
+            type="MLP", configs=dict(hidden_sizes=[512], output_activation=F.tanh,),
         ),
         critic=dict(
             type="MLP",
