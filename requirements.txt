@@ -38,7 +38,7 @@ pytest-pylint == 0.14.0
 pytest-flake8 == 1.0.4
 pytest-mypy == 0.4.2
 pytest-cov == 2.6.1
-py == 1.8.0
+py == 1.10.0
 
 # generating requirements
 pipreqs
